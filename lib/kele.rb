@@ -16,5 +16,9 @@ class Kele
     response = self.class.get("https://www.bloc.io/api/v1/mentors/529277/student_availability", headers: { "authorization" => @auth_token })
     JSON.generate(response)
   end
+  def get_roadmap(roadmap_id)
+    response = self.class.get("https://www.bloc.io/api/v1/roadmaps/31", headers: { "authorization" => @auth_token })
+    p response
+  end
 
 end
