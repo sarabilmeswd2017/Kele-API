@@ -39,4 +39,9 @@ class Kele
     response = self.class.get("https://www.bloc.io/api/v1/messages", headers: { "authorization" => @auth_token })
     JSON.parse(response.body)
   end
+
+  def create_submissions(checkpoint_id, assignment_branch, assignment_commit_link, comment)
+    response = self.class.post("https://www.bloc.io/api/v1/checkpoint_submissions", headers: { "authorization" => @auth_token })
+    JSON.parse(response.body)
+  end
 end
