@@ -1,9 +1,9 @@
 require 'httparty'
 require 'json'
-require 'lib/roadmap.rb'
+#require 'lib/roadmap'
 class Kele
   include HTTParty
-  include Roadmap
+  #include Roadmap
   base_uri "https://www.bloc.io/api/v1"
   def initialize(email, password)
     auth_hash = {email: email, password: password}
@@ -19,4 +19,24 @@ class Kele
     JSON.generate(response)
   end
 
+  def get_roadmap(roadmap_id)
+    response = self.class.get("https://www.bloc.io/api/v1/roadmaps/31", headers: { "authorization" => @auth_token })
+    response
+    JSON.parse(response.body)
+  end
+  def get_checkpoint(checkpoint_id)
+    response = self.class.get("https://www.bloc.io/api/v1/checkpoints/" + checkpoint_id.to_s, headers: { "authorization" => @auth_token })
+    response
+    JSON.parse(response.body)
+  end
+
+  def get_messages(page_number = 1)
+    response = self.class.get("https://www.bloc.io/api/v1/message_threads", headers: { "authorization" => @auth_token })
+    JSON.parse(response.body)
+  end
+
+  def create_message(sender, recipient_id, token, subject, stripped_text)
+    response = self.class.get("https://www.bloc.io/api/v1/messages", headers: { "authorization" => @auth_token })
+    JSON.parse(response.body)
+  end
 end
